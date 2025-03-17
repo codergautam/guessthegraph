@@ -13,18 +13,14 @@ export function executeFunction(f1, value, calculator) {
 
 export default async function checkFunctionsEqual() {
   const calculator = get(calculatorStore);
-  console.log(calculator);
 
-  const range = Array.from({ length: 11 }, (_, i) => i - 5);
-  console.log(range);
+  const range = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   const promises = range.map(i =>
     Promise.all([executeFunction('f', i, calculator), executeFunction('g', i, calculator)])
       .then(([val1, val2]) => ({ i, val1, val2 }))
   );
 
-  console.time();
   const results = await Promise.all(promises);
-  console.timeEnd();
   let allNaN = true;
 
   for (const { i, val1, val2 } of results) {
@@ -37,11 +33,9 @@ export default async function checkFunctionsEqual() {
     }
 
     if (Math.abs(val1 - val2) > 0.0001) {
-      console.log('functions not equal at x = ', i);
       return false;
     }
   }
-  console.log('allnan', allNaN);
 
   return allNaN ? 'NaN' : true;
 }
