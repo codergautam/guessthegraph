@@ -1,2 +1,17 @@
 @import 'tailwindcss';
 
+.game-btn {
+  @apply flex flex-col items-center justify-center p-6  rounded-xl text-white font-medium
+         shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]
+         focus:outline-none focus:ring-2 focus:ring-offset-2 mx-5 cursor-pointer;
+}
+
+.not-allowed {
+  @apply cursor-not-allowed;
+}
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600;
+}
+.text-gradient-secondary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500;
+}
