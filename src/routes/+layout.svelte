@@ -9,8 +9,13 @@
 	let calculator;
 
 	onMount(() => {
+
+		const options = {
+			settingsMenu: false,
+			invertedColors: true,
+		}
 		const elt = document.getElementById('calculator');
-		calculator = Desmos.GraphingCalculator(elt);
+		calculator = Desmos.GraphingCalculator(elt, options);
 		calculatorStore.set(calculator);
 
 		const observer = (eventName, event) => {

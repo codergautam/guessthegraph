@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import GameOverlay from '$lib/components/GameOverlay.svelte';
+    import FloatingUi from '$lib/components/FloatingUI.svelte';
 
   let showOverlay = true;
   let gameStarted = false;
@@ -23,4 +24,9 @@
 
 {#if showOverlay}
   <GameOverlay on:startGame={handleStartGame} />
+{/if}
+
+
+{#if gameStarted}
+<FloatingUi content="Game Started!" />
 {/if}
