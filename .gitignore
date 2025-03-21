@@ -24,3 +24,4 @@ vite.config.ts.timestamp-*
 
 pnpm-lock.yaml
 .next/
+package-lock.json
