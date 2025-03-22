@@ -1,11 +1,12 @@
 <script>
   import { gameStore, gameTimer } from '$lib/gameStore';
   import checkFunctionsEqual from '$lib/checkFunctions';
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { onMount, createEventDispatcher, onDestroy } from 'svelte';
   import { calculatorStore } from '$lib/store';
   import { fly, fade } from 'svelte/transition';
   import { showToast } from '$lib/toastStore';
   import AnimatedPoints from './AnimatedPoints.svelte';
+  import { get } from 'svelte/store';
 
   export let visible = true;
 
@@ -13,6 +14,7 @@
 
   let checking = false;
   let disabled = false;
+  let calculator;
 
   // Format time as MM:SS
   function formatTime(seconds) {

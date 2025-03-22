@@ -41,6 +41,8 @@
           color: '#2d70b3',
           secret: true
         });
+        // focus on the secret function
+        calculator.focusFirstExpression();
 
         // Add a placeholder for the user's function
         calculator.setExpression({

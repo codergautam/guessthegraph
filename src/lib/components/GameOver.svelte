@@ -61,7 +61,7 @@
                 <td class="py-3 px-3">{i + 1}</td>
                 <td class="py-3 px-3">
                   <div>{round.function.description}</div>
-                  <div class="text-xs text-gray-500 font-mono">g(x) = {round.function.expression}</div>
+                  <div class="text-xs text-gray-500 font-mono">g(x) = {round.function?.readableExpression ?? round.function.expression}</div>
                 </td>
                 <td class="py-3 px-3">{formatTime(round.timeSpent)}</td>
                 <td class="py-3 px-3 text-right font-medium"><AnimatedPoints value={round.points} /></td>

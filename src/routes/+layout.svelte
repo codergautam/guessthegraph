@@ -20,8 +20,8 @@
 		calculator = Desmos.GraphingCalculator(elt, options);
 		calculatorStore.set(calculator);
 
-		const observer = (eventName, event) => {
-			console.log('Change occurred', eventName, event);
+		const observer = (eventName, event, ...args) => {
+			console.log('Change occurred', eventName, event, args);
 
 			// Check if f(x) is removed and add it back if it is
 			const expressions = calculator.getExpressions();
