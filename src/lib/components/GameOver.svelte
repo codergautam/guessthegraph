@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { fly, fade, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import AnimatedPoints from './AnimatedPoints.svelte';
 
   export let gameData;
 
@@ -37,7 +38,7 @@
     <div class="text-center mb-6">
       <h1 class="text-4xl font-bold text-gradient mb-2">Game Complete!</h1>
       <p class="text-slate-600">
-        You scored <span class="font-bold text-indigo-600">{gameData.points}</span> points
+        You scored <span class="font-bold text-indigo-600"><AnimatedPoints value={gameData.points} /></span> points
         in {formatTime(totalTime)}
       </p>
     </div>
@@ -63,13 +64,13 @@
                   <div class="text-xs text-gray-500 font-mono">g(x) = {round.function.expression}</div>
                 </td>
                 <td class="py-3 px-3">{formatTime(round.timeSpent)}</td>
-                <td class="py-3 px-3 text-right font-medium">{round.points}</td>
+                <td class="py-3 px-3 text-right font-medium"><AnimatedPoints value={round.points} /></td>
               </tr>
             {/each}
             <tr class="bg-indigo-50 font-medium text-indigo-900 border-t border-gray-200">
               <td class="py-3 px-3" colspan="2">Total</td>
               <td class="py-3 px-3">{formatTime(totalTime)}</td>
-              <td class="py-3 px-3 text-right">{gameData.points}</td>
+              <td class="py-3 px-3 text-right"><AnimatedPoints value={gameData.points} /></td>
             </tr>
           </tbody>
         </table>

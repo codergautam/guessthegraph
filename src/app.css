@@ -15,3 +15,7 @@
 .text-gradient-secondary {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500;
 }
+.dcg-add-expression-btn,
+.dcg-action-toggle-edit {
+  display: none !important;
+}

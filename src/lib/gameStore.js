@@ -12,7 +12,7 @@ const gameFunctions = {
   medium: [
     { expression: 'x^3-2x', description: 'Cubic Function' },
     { expression: '\\tan(x)', description: 'Tangent Function' },
-    { expression: '\\sqrt(x)', description: 'Square Root' },
+    { expression: 'x^0.5', description: 'Square Root' },
     { expression: '1/x', description: 'Reciprocal Function' },
     { expression: 'e^x', description: 'Exponential Function' }
   ],
@@ -20,7 +20,7 @@ const gameFunctions = {
     { expression: '\\sin(x)/x', description: 'Sinc Function' },
     { expression: '\\ln(\\abs(x))', description: 'Natural Log' },
     { expression: 'x^2*\\sin(x)', description: 'Product Function' },
-    { expression: '1/(1+e^(-x))', description: 'Logistic Function' },
+    { expression: '\\frac{1}{(1+e^{-x})}', description: 'Logistic Function', readableExpression: '1/(1+e^(-x))' },
     { expression: '\\floor(x)', description: 'Floor Function' }
   ]
 };

@@ -5,6 +5,7 @@
   import { calculatorStore } from '$lib/store';
   import { fly, fade } from 'svelte/transition';
   import { showToast } from '$lib/toastStore';
+  import AnimatedPoints from './AnimatedPoints.svelte';
 
   export let visible = true;
 
@@ -21,6 +22,8 @@
   }
 
   async function checkAnswer() {
+    if (checking || disabled) return;
+
     checking = true;
     const result = await checkFunctionsEqual();
     checking = false;
@@ -37,6 +40,24 @@
       showToast('error', 'Not quite right. Keep trying!');
     }
   }
+
+  // Handle keyboard events for the Enter key
+  function handleKeydown(event) {
+    console.log('Key pressed:', event.key); // Debugging line
+    if (event.key === 'Enter' && $gameStore.gameState === 'playing' && !checking && !disabled) {
+      checkAnswer();
+    }
+  }
+
+  onMount(() => {
+    // Add global keyboard listener
+    window.addEventListener('keydown', handleKeydown);
+
+    // Clean up event listener when component is destroyed
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };
+  });
 
   // Reset disabled state when game state changes
   $: if ($gameStore.gameState === 'playing' && disabled) {
@@ -62,7 +83,7 @@
       </div>
       <div class="stat">
         <span class="label">Points</span>
-        <span class="value">{$gameStore.points}</span>
+        <span class="value"><AnimatedPoints value={$gameStore.points} /></span>
       </div>
     </div>
 
@@ -151,5 +172,11 @@
   .check-btn:disabled {
     background: #a5b4fc;
     cursor: not-allowed;
+  }
+
+  .shortcut {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-left: 4px;
   }
 </style>

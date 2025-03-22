@@ -28,7 +28,7 @@
 			const fFunction = expressions.find(expr => expr.id === 'f');
 
 			console.log('Expressions:', expressions);
-			if (!fFunction || !fFunction.latex.startsWith('f(x)=')) {
+			if (!fFunction || !fFunction.latex.includes('f(x)=')) {
 				calculator.setExpression({
 					id: 'f',
 					latex: 'f(x)=',
