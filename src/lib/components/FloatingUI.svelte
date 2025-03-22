@@ -1,16 +1,82 @@
 <script>
-  export let visible = true;
-  export let content = "Hello world";
+  import { gameStore, gameTimer } from '$lib/gameStore';
+  import checkFunctionsEqual from '$lib/checkFunctions';
+  import { onMount, createEventDispatcher } from 'svelte';
+  import { calculatorStore } from '$lib/store';
+  import { fly, fade } from 'svelte/transition';
+  import { showToast } from '$lib/toastStore';
 
-  // You can add more props here for timer, score, etc.
+  export let visible = true;
+
+  const dispatch = createEventDispatcher();
+
+  let checking = false;
+  let disabled = false;
+
+  // Format time as MM:SS
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+  }
+
+  async function checkAnswer() {
+    checking = true;
+    const result = await checkFunctionsEqual();
+    checking = false;
+
+    if (result === true) {
+      // Disable button to prevent spamming
+      disabled = true;
+      showToast('success', 'Correct! Great job!');
+      gameStore.checkAnswer(true);
+      dispatch('correct');
+    } else if (result === 'NaN') {
+      showToast('warning', 'Function values are undefined. Please check your function.');
+    } else {
+      showToast('error', 'Not quite right. Keep trying!');
+    }
+  }
+
+  // Reset disabled state when game state changes
+  $: if ($gameStore.gameState === 'playing' && disabled) {
+    disabled = false;
+  }
 </script>
 
 <div
   class="floating-ui"
   class:visible
+  in:fly={{ y: -20, duration: 300 }}
+  out:fade={{ duration: 200 }}
 >
   <div class="content">
-    {content}
+    <div class="stats">
+      <div class="stat">
+        <span class="label">Round</span>
+        <span class="value">{$gameStore.currentRound}/{$gameStore.totalRounds}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Time</span>
+        <span class="value">{formatTime($gameTimer)}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Points</span>
+        <span class="value">{$gameStore.points}</span>
+      </div>
+    </div>
+
+    <button
+      class="check-btn"
+      on:click={checkAnswer}
+      disabled={checking || disabled}
+    >
+      {#if checking}
+        Checking...
+      {:else}
+        Check Answer
+      {/if}
+    </button>
   </div>
 </div>
 
@@ -19,15 +85,15 @@
     position: absolute;
     top: 5px;
     right: 50px;
-    background-color: #1d1d1d;
-    border-radius: 8px;
-    padding: 12px 16px;
+    padding: 16px;
     z-index: 100;
     opacity: 0;
-    outline: 2px solid rgba(255, 255, 255, 0.1);
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
+    width: 260px;
+
+    background: var(--dcg-custom-background-color-shaded, #ededed);
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 8px;
   }
 
   .floating-ui.visible {
@@ -37,8 +103,53 @@
   }
 
   .content {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #666;
+  }
+
+  .value {
     font-size: 16px;
-    font-weight: 500;
-    color: #ebebeb;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .check-btn {
+    width: 100%;
+    background: #4263eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .check-btn:hover {
+    background: #3b5bdb;
+  }
+
+  .check-btn:disabled {
+    background: #a5b4fc;
+    cursor: not-allowed;
   }
 </style>
