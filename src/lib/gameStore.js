@@ -88,6 +88,12 @@ function createGameStore() {
   return {
     subscribe,
     update,
+    applyHintPenalty: () => {
+      update(state => ({
+        ...state,
+        points: Math.floor(state.points * 0.5)
+      }));
+    },
     startGame: (difficulty) => {
       update(state => {
         const functions = [...gameFunctions[difficulty]];

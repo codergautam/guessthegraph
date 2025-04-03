@@ -89,17 +89,29 @@
       </div>
     </div>
 
-    <button
-      class="check-btn"
-      on:click={checkAnswer}
-      disabled={checking || disabled}
-    >
-      {#if checking}
-        Checking...
-      {:else}
-        Check Answer
-      {/if}
-    </button>
+    <div class="button-group">
+  <button
+    class="hint-btn"
+    on:click={() => {
+      showToast('warning', $gameStore.currentFunction.description);
+      gameStore.applyHintPenalty();
+    }}
+    disabled={checking || disabled}
+  >
+    Hint
+  </button>
+  <button
+    class="check-btn"
+    on:click={checkAnswer}
+    disabled={checking || disabled}
+  >
+    {#if checking}
+      Checking...
+    {:else}
+      Check Answer
+    {/if}
+  </button>
+</div>
   </div>
 </div>
 
@@ -173,6 +185,33 @@
 
   .check-btn:disabled {
     background: #a5b4fc;
+    cursor: not-allowed;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .hint-btn {
+    flex: 1;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .hint-btn:hover {
+    background: #d97706;
+  }
+
+  .hint-btn:disabled {
+    background: #fcd34d;
     cursor: not-allowed;
   }
 
