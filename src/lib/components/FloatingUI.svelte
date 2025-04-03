@@ -89,29 +89,31 @@
       </div>
     </div>
 
-    <div class="button-group">
-  <button
-    class="hint-btn"
-    on:click={() => {
-      showToast('warning', $gameStore.currentFunction.description, 999999);
-      gameStore.useHint();
-    }}
-    disabled={checking || disabled || $gameStore.hintUsed}
-  >
-    Hint
-  </button>
-  <button
-    class="check-btn"
-    on:click={checkAnswer}
-    disabled={checking || disabled}
-  >
-    {#if checking}
-      Checking...
-    {:else}
-      Check Answer
+    {#if $gameStore.hintUsed}
+      <div class="hint-display">
+        {$gameStore.currentFunction.description}
+      </div>
     {/if}
-  </button>
-</div>
+    <div class="button-group">
+      <button
+        class="hint-btn"
+        on:click={() => gameStore.useHint()}
+        disabled={checking || disabled || $gameStore.hintUsed}
+      >
+        Hint
+      </button>
+      <button
+        class="check-btn"
+        on:click={checkAnswer}
+        disabled={checking || disabled}
+      >
+        {#if checking}
+          Checking...
+        {:else}
+          Check Answer
+        {/if}
+      </button>
+    </div>
   </div>
 </div>
 
@@ -213,6 +215,16 @@
   .hint-btn:disabled {
     background: #fcd34d;
     cursor: not-allowed;
+  }
+
+  .hint-display {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-align: center;
   }
 
   .shortcut {
