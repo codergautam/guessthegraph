@@ -19,7 +19,6 @@ const gameFunctions = {
     { expression: '-x', description: 'Negative Identity Function' },
     { expression: '4x', description: 'Simple Scaling Function' },
     { expression: '\\frac{x}{2}', description: 'Simple Fractional Function' },
-    { expression: '\\abs{x+2}', description: 'Shifted Absolute Value' },
     { expression: '\\sin(2x)', description: 'Scaled Sine Function' },
     { expression: '\\cos(2x)', description: 'Scaled Cosine Function' },
     { expression: 'x^2+1', description: 'Shifted Quadratic' },
@@ -38,7 +37,6 @@ const gameFunctions = {
     { expression: '\\sin(x)-1', description: 'Sine minus one' },
     { expression: '\\cos(x)+1', description: 'Cosine plus one' },
     { expression: '-2x', description: 'Negative scaled Linear' },
-    { expression: '\\abs{x-3}', description: 'Absolute shifted by three' },
     { expression: '\\sqrt{x}+2', description: 'Square root plus two' },
     { expression: '\\frac{x}{3}', description: 'Third of x' },
     { expression: '-x^2', description: 'Negative Quadratic' },
@@ -48,8 +46,6 @@ const gameFunctions = {
     { expression: 'x^3-1', description: 'Cubic minus one' },
     { expression: 'x+10', description: 'Linear shifted by ten' },
     { expression: '\\frac{1}{x+1}', description: 'Shifted Reciprocal' },
-    { expression: '\\abs{x}+1', description: 'Absolute plus one' },
-    { expression: 'x^2+x+1', description: 'Quadratic plus linear plus one' },
     { expression: '-3x', description: 'Negative triple scaling' }
   ],
   medium: [
@@ -143,9 +139,14 @@ function createGameStore() {
         // Base points: Easy: 100, Medium: 200, Hard: 300
         let basePoints = 1000;
 
-        const roundPoints = isCorrect ?
-          Math.max(0, Math.round(basePoints * (1 - Math.min(timeSpent, 300) / 300))) : 0;
+        let roundPoints = isCorrect ?
+          Math.max(0, Math.round(basePoints * (1 - Math.min(timeSpent, 180) / 180))) : 0;
 
+
+        if(timeSpent < 2) {
+          roundPoints = basePoints;
+        }
+        
         const roundHistory = {
           round: state.currentRound,
           function: state.currentFunction,
