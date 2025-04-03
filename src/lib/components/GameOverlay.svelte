@@ -68,14 +68,7 @@
         </div>
 
         <div class="grid gap-4">
-          <button
-            on:click={() => selectMode('singleplayer')}
-            class="game-btn bg-indigo-600 hover:bg-indigo-700"
-            in:fly={{ y: 20, duration: 300, delay: 200 }}
-          >
-            <span class="text-xl">Singleplayer</span>
-            <span class="text-xs text-indigo-200">Challenge yourself!</span>
-          </button>
+
 
           <button
             on:click={() => selectMode('daily')}
@@ -85,7 +78,15 @@
             <span class="text-xl">Daily Challenge</span>
             <span class="text-xs text-emerald-200">New function every day</span>
           </button>
-
+          
+          <button
+            on:click={() => selectMode('singleplayer')}
+            class="game-btn bg-indigo-600 hover:bg-indigo-700"
+            in:fly={{ y: 20, duration: 300, delay: 200 }}
+          >
+            <span class="text-xl">Practice</span>
+            <span class="text-xs text-indigo-200">Play at your own pace</span>
+          </button>
           <button
             disabled
             class="game-btn bg-gray-400 not-allowed relative overflow-hidden"

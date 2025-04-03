@@ -19,3 +19,8 @@
 .dcg-action-toggle-edit {
   display: none !important;
 }
+.dcg-calculator-api-container-v1_10 .dcg-overgraph-icon-container.dcg-bottom-right {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}

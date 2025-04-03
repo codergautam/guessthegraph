@@ -58,13 +58,6 @@
     const calculator = get(calculatorStore);
     const currentGame = get(gameStore);
 
-    // Reveal the secret function
-    calculator.setExpression({
-      id: 'g',
-      latex: `g(x)=${currentGame.currentFunction.expression}`,
-      color: '#2d70b3',
-      secret: false
-    });
 
     // Move to next round immediately
     const updatedGame = get(gameStore);
