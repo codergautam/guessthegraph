@@ -93,10 +93,10 @@
   <button
     class="hint-btn"
     on:click={() => {
-      showToast('warning', $gameStore.currentFunction.description);
-      gameStore.applyHintPenalty();
+      showToast('warning', $gameStore.currentFunction.description, 999999);
+      gameStore.useHint();
     }}
-    disabled={checking || disabled}
+    disabled={checking || disabled || $gameStore.hintUsed}
   >
     Hint
   </button>

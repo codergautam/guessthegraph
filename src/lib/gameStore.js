@@ -88,10 +88,11 @@ function createGameStore() {
   return {
     subscribe,
     update,
-    applyHintPenalty: () => {
+    useHint: () => {
       update(state => ({
         ...state,
-        points: Math.floor(state.points * 0.5)
+        roundStartTime: state.roundStartTime - 10000, // Add 10 seconds by moving start time back
+        hintUsed: true
       }));
     },
     startGame: (difficulty) => {
@@ -128,6 +129,7 @@ function createGameStore() {
           currentRound: nextRound,
           currentFunction: state.functions[nextRound - 1],
           roundStartTime: Date.now(),
+          hintUsed: false,
           gameState: 'playing'
         };
       });
