@@ -6,8 +6,51 @@ const gameFunctions = {
     { expression: 'x^2', description: 'Quadratic Function' },
     { expression: '2x+3', description: 'Linear Function' },
     { expression: '\\sin(x)', description: 'Sine Function' },
-    { expression: '\\abs(x)', description: 'Absolute Value' },
-    { expression: '3', description: 'Constant Function' }
+    { expression: '\\abs(x)', description: 'Absolute Value Function' },
+    { expression: '3', description: 'Constant Function' },
+    { expression: 'x', description: 'Identity Function' },
+    { expression: 'x+1', description: 'Simple Linear Function' },
+    { expression: '\\cos(x)', description: 'Cosine Function' },
+    { expression: '\\tan(x)', description: 'Tangent Function (basic)' },
+    { expression: '\\sqrt{x}', description: 'Square Root Function' },
+    { expression: 'x^3', description: 'Simple Cubic Function' },
+    { expression: '5', description: 'Constant Function' },
+    { expression: 'x-4', description: 'Linear Subtraction' },
+    { expression: '-x', description: 'Negative Identity Function' },
+    { expression: '4x', description: 'Simple Scaling Function' },
+    { expression: '\\frac{x}{2}', description: 'Simple Fractional Function' },
+    { expression: '\\abs{x+2}', description: 'Shifted Absolute Value' },
+    { expression: '\\sin(2x)', description: 'Scaled Sine Function' },
+    { expression: '\\cos(2x)', description: 'Scaled Cosine Function' },
+    { expression: 'x^2+1', description: 'Shifted Quadratic' },
+    { expression: 'x^2-1', description: 'Quadratic Minus One' },
+    { expression: '2', description: 'Constant Function Two' },
+    { expression: '\\sin(x)+1', description: 'Shifted Sine' },
+    { expression: '\\cos(x)-1', description: 'Shifted Cosine' },
+    { expression: '\\frac{1}{2}x', description: 'Half of x' },
+    { expression: 'x^4', description: 'Quartic Function' },
+    { expression: 'x^2 + x', description: 'Quadratic plus Linear' },
+    { expression: '3x - 5', description: 'Linear Function with negative shift' },
+    { expression: '\\frac{x}{4}', description: 'Quarter of x' },
+    { expression: '7', description: 'Constant Seven' },
+    { expression: '\\sqrt{x+1}', description: 'Shifted Square Root' },
+    { expression: '\\frac{1}{x}', description: 'Basic Reciprocal Function' },
+    { expression: '\\sin(x)-1', description: 'Sine minus one' },
+    { expression: '\\cos(x)+1', description: 'Cosine plus one' },
+    { expression: '-2x', description: 'Negative scaled Linear' },
+    { expression: '\\abs{x-3}', description: 'Absolute shifted by three' },
+    { expression: '\\sqrt{x}+2', description: 'Square root plus two' },
+    { expression: '\\frac{x}{3}', description: 'Third of x' },
+    { expression: '-x^2', description: 'Negative Quadratic' },
+    { expression: '\\frac{x^2}{2}', description: 'Quadratic divided by two' },
+    { expression: '2x^2', description: 'Squeezed Parabola' },
+    { expression: 'x^3+1', description: 'Cubic plus one' },
+    { expression: 'x^3-1', description: 'Cubic minus one' },
+    { expression: 'x+10', description: 'Linear shifted by ten' },
+    { expression: '\\frac{1}{x+1}', description: 'Shifted Reciprocal' },
+    { expression: '\\abs{x}+1', description: 'Absolute plus one' },
+    { expression: 'x^2+x+1', description: 'Quadratic plus linear plus one' },
+    { expression: '-3x', description: 'Negative triple scaling' }
   ],
   medium: [
     { expression: 'x^3-2x', description: 'Cubic Function' },
@@ -90,15 +133,10 @@ function createGameStore() {
 
         // Calculate points (faster = more points)
         // Base points: Easy: 100, Medium: 200, Hard: 300
-        let basePoints = 0;
-        switch(state.difficulty) {
-          case 'easy': basePoints = 100; break;
-          case 'medium': basePoints = 200; break;
-          case 'hard': basePoints = 300; break;
-        }
+        let basePoints = 1000;
 
         const roundPoints = isCorrect ?
-          Math.max(0, Math.round(basePoints * (1 - Math.min(timeSpent, 60) / 60))) : 0;
+          Math.max(0, Math.round(basePoints * (1 - Math.min(timeSpent, 300) / 300))) : 0;
 
         const roundHistory = {
           round: state.currentRound,
