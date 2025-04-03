@@ -96,7 +96,7 @@
   });
 </script>
 
-<div id="calculator" class="w-screen h-screen relative"></div>
+<div id="calculator" class=" relative"></div>
 
 {#if showOverlay}
   <GameOverlay on:startGame={handleStartGame} />

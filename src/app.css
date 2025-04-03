@@ -15,12 +15,17 @@
 .text-gradient-secondary {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500;
 }
-.dcg-add-expression-btn,
+/* .dcg-add-expression-btn,
 .dcg-action-toggle-edit {
   display: none !important;
-}
+} */
 .dcg-calculator-api-container-v1_10 .dcg-overgraph-icon-container.dcg-bottom-right {
   position: fixed;
   bottom: 10px;
   right: 10px;
+}
+
+#calculator {
+  width: 100vw;
+  height: 100dvh;
 }
